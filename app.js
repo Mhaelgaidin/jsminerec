@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let flags = 0;
     let squares = [];
     let isGameOver = false;
+    let flagsLeft = document.querySelector('.flags');
 
     //create Board
     function createBoard() {
@@ -67,6 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         }
 
+        flagsLeft.innerHTML = bombAmount - flags;
+
     }
 
     createBoard();
@@ -80,10 +83,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 square.innerHTML = '🚩';
                 flags++;
                 checkForWin();
+                flagsLeft.innerHTML = bombAmount - flags;
             } else {
                 square.classList.remove('flag');
                 square.innerHTML = '';
                 flags--;
+                flagsLeft.innerHTML = bombAmount - flags;
             }
         }
     }
@@ -168,8 +173,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //Game Over 
     function gameOver(square) {
-        console.log('Boom! Game Over!')
         isGameOver = true;
+        document.querySelector('.gameOver').style.visibility = 'visible';
+        document.querySelector('.result').innerHTML = 'You Lost';
+
 
         //show ALL bombs
         squares.forEach(square => {
@@ -187,8 +194,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 matches++
             }
             if (matches === bombAmount && isGameOver === false) {
-                console.log('YOU WIN!');
                 isGameOver = true;
+                document.querySelector('.gameOver').style.visibility = 'visible';
+                document.querySelector('.result').innerHTML = 'You Won';
             }
         }
     }
