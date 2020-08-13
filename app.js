@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (i < 90 && squares[i + width].classList.contains('bomb')) total++;
                 //Check square to  bottom left
                 if (i < 90 && !isLeftEdge && squares[i - 1 + width].classList.contains('bomb')) total++;
-                squares[i].setAttribute('data', total);
+                squares[i].setAttribute('data-c', total);
             }
 
         }
@@ -100,15 +100,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (square.classList.contains('bomb')) {
             gameOver(square);
         } else {
-            let total = square.getAttribute('data')
+            let total = square.getAttribute('data-c')
             if (total != 0) {
                 square.classList.add('checked');
                 square.innerHTML = total;
                 return;
             }
+            square.classList.add('checked');
             checkSquare(square);
         }
-        square.classList.add('checked');
     }
 
     //check neighbouring squares once a square is clicked
@@ -176,7 +176,8 @@ document.addEventListener('DOMContentLoaded', () => {
         isGameOver = true;
         document.querySelector('.gameOver').style.visibility = 'visible';
         document.querySelector('.result').innerHTML = 'You Lost';
-
+        square.classList.remove('bomb');
+        square.innerHTML = '💥'
 
         //show ALL bombs
         squares.forEach(square => {
