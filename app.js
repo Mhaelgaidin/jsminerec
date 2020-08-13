@@ -49,20 +49,20 @@ document.addEventListener('DOMContentLoaded', () => {
             if (squares[i].classList.contains('valid')) {
                 //Check square to left
                 if (i > 0 && !isLeftEdge && squares[i - 1].classList.contains('bomb')) total++;
+                //Check square to top left
+                if (i > 10 && !isLeftEdge && squares[i - 1 - width].classList.contains('bomb')) total++;
+                //Check square above
+                if (i > 9 && squares[i - width].classList.contains('bomb')) total++;
                 //Check square to top right
                 if (i > 9 && !isRightEdge && squares[i + 1 - width].classList.contains('bomb')) total++;
-                //Check square above
-                if (i > 10 && squares[i - width].classList.contains('bomb')) total++;
-                //Check square to top left
-                if (i > 11 && !isLeftEdge && squares[i - 1 - width].classList.contains('bomb')) total++;
                 //Check square to right
-                if (i < 98 && !isRightEdge && squares[i + 1].classList.contains('bomb')) total++;
+                if (i < 99 && !isRightEdge && squares[i + 1].classList.contains('bomb')) total++;
+                //Check square to bottom right
+                if (i < 89 && !isRightEdge && squares[i + 1 + width].classList.contains('bomb')) total++;
+                //Check square to bottom
+                if (i < 90 && squares[i + width].classList.contains('bomb')) total++;
                 //Check square to  bottom left
                 if (i < 90 && !isLeftEdge && squares[i - 1 + width].classList.contains('bomb')) total++;
-                //Check square to bottom right
-                if (i < 88 && !isRightEdge && squares[i + 1 + width].classList.contains('bomb')) total++;
-                //Check square to bottom
-                if (i < 89 && squares[i + width].classList.contains('bomb')) total++;
                 squares[i].setAttribute('data', total);
             }
 
@@ -124,45 +124,45 @@ document.addEventListener('DOMContentLoaded', () => {
                 const newSquare = document.getElementById(newId);
                 click(newSquare);
             }
+            //Check square top left
+            if (currentId > 10 && !isLeftEdge) {
+                const newId = squares[parseInt(currentId) - 1 - width].id
+                const newSquare = document.getElementById(newId);
+                click(newSquare);
+            }
+            //check square above
+            if (currentId > 9) {
+                const newId = squares[parseInt(currentId) - width].id
+                const newSquare = document.getElementById(newId);
+                click(newSquare);
+            }
             //Check square to top right
             if (currentId > 9 && !isRightEdge) {
                 const newId = squares[parseInt(currentId) + 1 - width].id;
                 const newSquare = document.getElementById(newId);
                 click(newSquare);
             }
-            //check square above
-            if (currentId > 10) {
-                const newId = squares[parseInt(currentId) - width].id
-                const newSquare = document.getElementById(newId);
-                click(newSquare);
-            }
-            //Check square top left
-            if (currentId > 11 && !isLeftEdge) {
-                const newId = squares[parseInt(currentId) - 1 - width].id
-                const newSquare = document.getElementById(newId);
-                click(newSquare);
-            }
             //Check square to right
-            if (currentId < 98 && !isRightEdge) {
+            if (currentId < 99 && !isRightEdge) {
                 const newId = squares[parseInt(currentId) + 1].id;
+                const newSquare = document.getElementById(newId);
+                click(newSquare);
+            }
+            //Check square  bottom right
+            if (currentId < 89 && !isRightEdge) {
+                const newId = squares[parseInt(currentId) + 1 + width].id
+                const newSquare = document.getElementById(newId);
+                click(newSquare);
+            }
+            //Check square below
+            if (currentId < 90) {
+                const newId = squares[parseInt(currentId) + width].id
                 const newSquare = document.getElementById(newId);
                 click(newSquare);
             }
             //check square bottom left
             if (currentId < 90 && !isLeftEdge) {
                 const newId = squares[parseInt(currentId) - 1 + width].id
-                const newSquare = document.getElementById(newId);
-                click(newSquare);
-            }
-            //Check square  bottom right
-            if (currentId < 88 && !isRightEdge) {
-                const newId = squares[parseInt(currentId) + 1 + width].id
-                const newSquare = document.getElementById(newId);
-                click(newSquare);
-            }
-            //Check square below
-            if (currentId < 89) {
-                const newId = squares[parseInt(currentId) + width].id
                 const newSquare = document.getElementById(newId);
                 click(newSquare);
             }
